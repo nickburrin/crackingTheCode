@@ -33,6 +33,14 @@ public class Point {
             return start <= mid && mid <= end;
     }
 
+    public static void swap(Point p1, Point p2) {
+        double tempX = p1.getX();
+        double tempY = p1.getY();
+
+        p1.setLocation(p2.getX(), p2.getY());
+        p2.setLocation(tempX, tempY);
+    }
+
     @Override
     public String toString() {
         return new StringBuilder().append("[").append(x).append(", ").append(y).append("]").toString();

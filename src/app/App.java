@@ -4,7 +4,11 @@ import static java.lang.System.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        // moderate_16_3();
         
+    }
+
+    private static void moderate_16_3() {
         Point p1 = new Point(0, 0);
         Point p2 = new Point(10, 10);
         Point p3 = new Point(0, 10);
@@ -17,8 +21,8 @@ public class App {
         if (start1.getX() > end1.getX()) swap(start1, end1);
         if (start2.getX() > end2.getX()) swap(start2, end2);
         if(start1.getX() > start2.getX()) {
-            swap(start1, start2);
-            swap(end1, end2);
+            Point.swap(start1, start2);
+            Point.swap(end1, end2);
         }
         
         Equation eq1 = new Equation(start1, end1);
