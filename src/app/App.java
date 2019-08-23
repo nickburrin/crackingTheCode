@@ -10,9 +10,9 @@ public class App {
     }
 
     private static void moderate_16_5() {
-        int n = 10;
+        int n = 20;
         Factorial fact = new Factorial(n);
-        out.println(String.format("There are %d zero's in %d! = %d.", factorialZeros(fact.result), n, fact.result));
+        out.println(String.format("There are %d trailing zero's in %d! = %d.", factorialZeros_optimize(n), n, fact.result));
     }
 
     private static int factorialZeros(int n) {
@@ -24,6 +24,18 @@ public class App {
         while (n % 10 == 0) {
             count++;
             n /= 10;
+        }
+
+        return count;
+    }
+
+    private static int factorialZeros_optimize(int num) {
+        if (num < 0)
+            return -1;
+
+        int count = 0;
+        for (int i = 5; num / i > 0; i *= 5) {
+            count += num / i;
         }
 
         return count;
