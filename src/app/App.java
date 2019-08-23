@@ -5,7 +5,28 @@ import static java.lang.System.*;
 public class App {
     public static void main(String[] args) throws Exception {
         // moderate_16_3();
+        moderate_16_5();
         
+    }
+
+    private static void moderate_16_5() {
+        int n = 10;
+        Factorial fact = new Factorial(n);
+        out.println(String.format("There are %d zero's in %d! = %d.", factorialZeros(fact.result), n, fact.result));
+    }
+
+    private static int factorialZeros(int n) {
+        if (n == 0)
+            return 0;
+        
+        int count = 0;
+
+        while (n % 10 == 0) {
+            count++;
+            n /= 10;
+        }
+
+        return count;
     }
 
     private static void moderate_16_3() {
@@ -18,8 +39,8 @@ public class App {
     }
 
     private static Point doLinesIntersect(Point start1, Point end1, Point start2, Point end2) {
-        if (start1.getX() > end1.getX()) swap(start1, end1);
-        if (start2.getX() > end2.getX()) swap(start2, end2);
+        if (start1.getX() > end1.getX()) Point.swap(start1, end1);
+        if (start2.getX() > end2.getX()) Point.swap(start2, end2);
         if(start1.getX() > start2.getX()) {
             Point.swap(start1, start2);
             Point.swap(end1, end2);
@@ -47,13 +68,5 @@ public class App {
         }
         
         return null;
-    }
-
-    private static void swap(Point start1, Point end1) {
-        double tempX = start1.getX();
-        double tempY = start1.getY();
-
-        start1.setLocation(end1.getX(), end1.getY());
-        end1.setLocation(tempX, tempY);
     }
 }
