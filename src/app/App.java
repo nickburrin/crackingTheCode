@@ -2,11 +2,66 @@ package app;
 
 import static java.lang.System.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class App {
     public static void main(String[] args) throws Exception {
         // moderate_16_3();
-        moderate_16_5();
+        // moderate_16_5();
         
+        amazonInterview();
+    }
+
+    private static void amazonInterview() {
+        int n = 5;
+        double maxPrice = 100;
+        List<StockRecord> records = new ArrayList<StockRecord>();
+        for (int i = 0; i < n; i++) {
+            records.add(StockRecord.generateRandom(i, maxPrice));
+        }
+        out.println(records);
+
+        StockRecord[] result = bestTimeToBuyAndSell(records);
+        out.println(String.format("Bought stock %s and sold at %s for a return of %.2f", 
+            result[0], result[1], result[1].price - result[0].price));
+    }
+
+    private static StockRecord[] bestTimeToBuyAndSell(List<StockRecord> timeSortedRecords) {
+        List<StockRecord> futureMaxRecord = memo(timeSortedRecords);
+
+        double maxReturn = Double.MIN_VALUE;
+        StockRecord buy = null;
+        StockRecord sell = null;
+
+        for (int i = 0; i < timeSortedRecords.size(); i++) {
+            double ret = futureMaxRecord.get(i).price - timeSortedRecords.get(i).price;
+            if(ret > maxReturn) {
+                maxReturn = ret;
+                buy = timeSortedRecords.get(i);
+                sell = futureMaxRecord.get(i);
+            }
+        }
+
+        StockRecord[] buySellTime = new StockRecord[2];
+        buySellTime[0] = buy;
+        buySellTime[1] = sell;
+        return buySellTime;
+    }
+
+    private static List<StockRecord> memo(List<StockRecord> timeSortedRecords) {
+        int n = timeSortedRecords.size();
+        ArrayList<StockRecord> futureMaxes = new ArrayList<StockRecord>(n);
+        StockRecord max = timeSortedRecords.get(n-1);
+
+        for (int i = n - 1; i >= 0; i--) {
+            if (timeSortedRecords.get(i).price > max.price)
+                max = timeSortedRecords.get(i);
+
+            futureMaxes.add(0, max);
+        }
+
+        return futureMaxes;
     }
 
     private static void moderate_16_5() {
