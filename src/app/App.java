@@ -15,7 +15,17 @@ public class App {
         // addTwoLinkedLists();
         // amazonInterview();
         // moderate_16_6();
-        moderate_16_8();
+        // moderate_16_8();
+        moderate_16_9();
+    }
+
+    private static void moderate_16_9() {
+        int a = -5;
+        int b = -6;
+
+        out.println(String.format("%d * %d = %d", a, b, Operators.multiply(a, b)));
+        out.println(String.format("%d - %d = %d", a, b, Operators.subtract(a, b)));
+        out.println(String.format("%d / %d = %d", a, b, Operators.divide(a, b)));
     }
 
     private static void moderate_16_8() {
