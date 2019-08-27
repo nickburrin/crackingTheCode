@@ -14,7 +14,14 @@ public class App {
         // moderate_16_5();
         // addTwoLinkedLists();
         // amazonInterview();
-        moderate_16_6();
+        // moderate_16_6();
+        moderate_16_8();
+    }
+
+    private static void moderate_16_8() {
+        int n = 1000000;
+        IntegerToEnglishPhrase integerPhrase = new IntegerToEnglishPhrase(n);
+        System.out.println(String.format("The Integer %d is spoken: %s", n, integerPhrase.toString()));
     }
 
     private static void addTwoLinkedLists() {
