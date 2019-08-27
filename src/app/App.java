@@ -4,11 +4,17 @@ import java.lang.System.*;
 
 import static java.lang.System.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class App {
     public static void main(String[] args) throws Exception {
         // moderate_16_3();
         // moderate_16_5();
-        addTwoLinkedLists();
+        // addTwoLinkedLists();
+        // amazonInterview();
+        moderate_16_6();
     }
 
     private static void addTwoLinkedLists() {
@@ -42,6 +48,85 @@ public class App {
             curr.next = new ListNode(carry);
         }
         return dummyHead.next;
+    }
+
+    private static void moderate_16_6() {
+        List<Integer> list1 = Utility.generateRandomList(2, 20);
+        List<Integer> list2 = Utility.generateRandomList(2, 20);
+
+        out.println("List 1: " + list1.toString());
+        out.println("List 2: " + list2.toString());
+        out.println(String.format("The smallest positive difference in the arrays is %d", findSmallestDifference(list1, list2)));
+    }
+
+    private static int findSmallestDifference(List<Integer> list1, List<Integer> list2) {
+        Collections.sort(list1);
+        Collections.sort(list2);
+
+        int a = 0;
+        int b = 0;
+        int minDiff = Integer.MAX_VALUE;
+        while (a < list1.size() && b < list2.size()) {
+            int diff = Math.abs(list1.get(a) - list2.get(b));
+            minDiff = (diff < minDiff) ? diff : minDiff;
+
+            if (list1.get(a) > list2.get(b)) b++;
+            else if (list1.get(a) < list2.get(b)) a++;
+            else return minDiff;
+        }
+        
+        return minDiff;
+    }
+
+    private static void amazonInterview() {
+        int n = 5;
+        double maxPrice = 100;
+        List<StockRecord> records = new ArrayList<StockRecord>();
+        for (int i = 0; i < n; i++) {
+            records.add(StockRecord.generateRandom(i, maxPrice));
+        }
+        out.println(records);
+
+        StockRecord[] result = bestTimeToBuyAndSell(records);
+        out.println(String.format("Bought stock %s and sold at %s for a return of %.2f", 
+            result[0], result[1], result[1].price - result[0].price));
+    }
+
+    private static StockRecord[] bestTimeToBuyAndSell(List<StockRecord> timeSortedRecords) {
+        List<StockRecord> futureMaxRecord = memo(timeSortedRecords);
+
+        double maxReturn = Double.MIN_VALUE;
+        StockRecord buy = null;
+        StockRecord sell = null;
+
+        for (int i = 0; i < timeSortedRecords.size(); i++) {
+            double ret = futureMaxRecord.get(i).price - timeSortedRecords.get(i).price;
+            if(ret > maxReturn) {
+                maxReturn = ret;
+                buy = timeSortedRecords.get(i);
+                sell = futureMaxRecord.get(i);
+            }
+        }
+
+        StockRecord[] buySellTime = new StockRecord[2];
+        buySellTime[0] = buy;
+        buySellTime[1] = sell;
+        return buySellTime;
+    }
+
+    private static List<StockRecord> memo(List<StockRecord> timeSortedRecords) {
+        int n = timeSortedRecords.size();
+        ArrayList<StockRecord> futureMaxes = new ArrayList<StockRecord>(n);
+        StockRecord max = timeSortedRecords.get(n-1);
+
+        for (int i = n - 1; i >= 0; i--) {
+            if (timeSortedRecords.get(i).price > max.price)
+                max = timeSortedRecords.get(i);
+
+            futureMaxes.add(0, max);
+        }
+
+        return futureMaxes;
     }
 
     private static void moderate_16_5() {
