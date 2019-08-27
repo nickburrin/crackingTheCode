@@ -3,14 +3,44 @@ package app;
 import static java.lang.System.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class App {
     public static void main(String[] args) throws Exception {
         // moderate_16_3();
         // moderate_16_5();
+        // amazonInterview();
+
+        moderate_16_6();
+    }
+
+    private static void moderate_16_6() {
+        List<Integer> list1 = Utility.generateRandomList(2, 20);
+        List<Integer> list2 = Utility.generateRandomList(2, 20);
+
+        out.println("List 1: " + list1.toString());
+        out.println("List 2: " + list2.toString());
+        out.println(String.format("The smallest positive difference in the arrays is %d", findSmallestDifference(list1, list2)));
+    }
+
+    private static int findSmallestDifference(List<Integer> list1, List<Integer> list2) {
+        Collections.sort(list1);
+        Collections.sort(list2);
+
+        int a = 0;
+        int b = 0;
+        int minDiff = Integer.MAX_VALUE;
+        while (a < list1.size() && b < list2.size()) {
+            int diff = Math.abs(list1.get(a) - list2.get(b));
+            minDiff = (diff < minDiff) ? diff : minDiff;
+
+            if (list1.get(a) > list2.get(b)) b++;
+            else if (list1.get(a) < list2.get(b)) a++;
+            else return minDiff;
+        }
         
-        amazonInterview();
+        return minDiff;
     }
 
     private static void amazonInterview() {
