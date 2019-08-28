@@ -7,6 +7,7 @@ import static java.lang.System.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class App {
@@ -18,7 +19,29 @@ public class App {
         // moderate_16_6();
         // moderate_16_8();
         // moderate_16_9();
-        moderate_16_10();
+        // moderate_16_10();
+        moderate_16_11();
+    }
+
+    private static void moderate_16_11() {
+        int k = 6;
+        HashSet<Integer> lengths = new HashSet<Integer>(k);
+        int shorter = 5;
+        int longer = 8;
+
+        generateAllLengths(k, shorter, longer, lengths, 0);
+        out.println(String.format("All of the possible lengths using %d boards of either length=%d or length=%d are: %s", 
+            k, shorter, longer, lengths.toString()));
+    }
+
+    private static void generateAllLengths(int k, int shorter, int longer, HashSet<Integer> lengths, int length) {
+        if (k == 0) {
+            lengths.add(length);
+            return;
+        }
+
+        generateAllLengths(k-1, shorter, longer, lengths, length + shorter);
+        generateAllLengths(k-1, shorter, longer, lengths, length + longer);
     }
 
     private static void moderate_16_10() {
