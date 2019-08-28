@@ -5,6 +5,7 @@ import java.lang.System.*;
 import static java.lang.System.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,7 +17,79 @@ public class App {
         // amazonInterview();
         // moderate_16_6();
         // moderate_16_8();
-        moderate_16_9();
+        // moderate_16_9();
+        moderate_16_10();
+    }
+
+    private static void moderate_16_10() {
+        int begin = 1900;
+        int end = 2000;
+        int n = 5;
+
+        List<Person> people = createRandomPeople(n, begin, end);
+
+        int maxAliveYear = maxAliveYear(people, begin, end);
+        out.println(String.format("The most people were alive in year: %d", maxAliveYear));
+    }
+
+    private static int maxAliveYear(List<Person> people, int begin, int end) {
+        int count = people.size();
+        int[] births = new int[count];
+        int[] deaths = new int[count];
+        initArrays(people, births, deaths);
+        out.println("Birth years: " + Arrays.toString(births));
+        out.println("Death years: " + Arrays.toString(deaths));
+
+        int year = begin;
+        int alive = 0;
+        int maxAlive = 0;
+        int maxYear = 0;
+        int birthIndex = 0;
+        int deathIndex = 0;
+        while (birthIndex < count) {
+            if (births[birthIndex] <= deaths[deathIndex]) {
+                alive++;
+                if (alive > maxAlive) {
+                    maxAlive = alive;
+                    maxYear = births[birthIndex];
+                }
+                birthIndex++;
+            } else if (deaths[deathIndex] < births[birthIndex]) {
+                alive--;
+                deathIndex++;
+            }
+        }
+
+        return maxYear;
+    }
+
+    private static void initArrays(List<Person> people, int[] births, int[] deaths) {
+        int n = people.size();
+        List<Integer> tempBirths = new ArrayList<Integer>(n);
+        List<Integer> tempDeaths = new ArrayList<Integer>(n);
+
+        for (int i = 0; i < n; i++) {
+            tempBirths.add(people.get(i).birth);
+            tempDeaths.add(people.get(i).death);
+        }
+
+        Collections.sort(tempBirths);
+        Collections.sort(tempDeaths);
+
+        for (int i = 0; i < n; i++) {
+            births[i] = tempBirths.get(i);
+            deaths[i] = tempDeaths.get(i);
+        }
+    }
+
+    private static List<Person> createRandomPeople(int n, int begin, int end) {
+        List<Person> list = new ArrayList<Person>(n);
+        while (n > 0) {
+            list.add(Person.create(begin, end));
+            n--;
+        }
+
+        return list;
     }
 
     private static void moderate_16_9() {
