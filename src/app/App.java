@@ -30,12 +30,21 @@ public class App {
         int shorter = 1;
         int longer = 5;
 
-        generateAllLengths(k, shorter, longer, lengths, visited, 0);
+        // generateAllLengths_recursive(k, shorter, longer, lengths, visited, 0);
+        generateAllLengths_iterative(k, shorter, longer, lengths);
         out.println(String.format("All of the possible lengths using %d boards of either length=%d or length=%d are: %s", 
             k, shorter, longer, lengths.toString()));
     }
 
-    private static void generateAllLengths(int k, int shorter, int longer, HashSet<Integer> lengths, HashSet<String> visited, int length) {
+    private static void generateAllLengths_iterative(int k, int shorter, int longer, HashSet<Integer> lengths) {
+        for (int numShort = 0; numShort <= k; numShort++) {
+            int length = numShort*shorter + (k-numShort)*longer;
+            lengths.add(length);
+        }
+    }
+
+    private static void generateAllLengths_recursive(int k, int shorter, int longer, HashSet<Integer> lengths,
+            HashSet<String> visited, int length) {
         if (k == 0) {
             lengths.add(length);
             return;
@@ -46,8 +55,8 @@ public class App {
         if (visited.contains(key))
             return;
 
-        generateAllLengths(k-1, shorter, longer, lengths, visited, length + shorter);
-        generateAllLengths(k-1, shorter, longer, lengths, visited, length + longer);
+        generateAllLengths_recursive(k-1, shorter, longer, lengths, visited, length + shorter);
+        generateAllLengths_recursive(k-1, shorter, longer, lengths, visited, length + longer);
 
         visited.add(key);
     }
