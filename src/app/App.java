@@ -24,24 +24,32 @@ public class App {
     }
 
     private static void moderate_16_11() {
-        int k = 6;
+        int k = 3;
         HashSet<Integer> lengths = new HashSet<Integer>(k);
-        int shorter = 5;
-        int longer = 8;
+        HashSet<String> visited = new HashSet<String>(k);
+        int shorter = 1;
+        int longer = 5;
 
-        generateAllLengths(k, shorter, longer, lengths, 0);
+        generateAllLengths(k, shorter, longer, lengths, visited, 0);
         out.println(String.format("All of the possible lengths using %d boards of either length=%d or length=%d are: %s", 
             k, shorter, longer, lengths.toString()));
     }
 
-    private static void generateAllLengths(int k, int shorter, int longer, HashSet<Integer> lengths, int length) {
+    private static void generateAllLengths(int k, int shorter, int longer, HashSet<Integer> lengths, HashSet<String> visited, int length) {
         if (k == 0) {
             lengths.add(length);
             return;
         }
 
-        generateAllLengths(k-1, shorter, longer, lengths, length + shorter);
-        generateAllLengths(k-1, shorter, longer, lengths, length + longer);
+        String key = k + " " + length;
+
+        if (visited.contains(key))
+            return;
+
+        generateAllLengths(k-1, shorter, longer, lengths, visited, length + shorter);
+        generateAllLengths(k-1, shorter, longer, lengths, visited, length + longer);
+
+        visited.add(key);
     }
 
     private static void moderate_16_10() {
