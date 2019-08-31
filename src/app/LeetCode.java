@@ -32,18 +32,15 @@ class LeetCode {
         while (right - left > 1) {
             mid = left + (right - left)/2;
 
+            if (nums[mid] == target)
+                return mid;
             if (nums[mid] > target)
                 right = mid;
-            else if (nums[mid] < target)
-                left = mid;
             else
-                return mid;
+                left = mid+1;
         }
-        
-        if (target <= nums[left])
-            return left;
-        else
-            return right;
+
+        return left;
     }
 
     private static void runMergeTwoLists() {
