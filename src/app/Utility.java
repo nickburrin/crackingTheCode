@@ -15,4 +15,17 @@ public class Utility {
 
         return list;
     }
+
+	public static ListNode createList(int count, int maxInt) {
+        ListNode head = new ListNode((int) (Math.random() * maxInt));
+        ListNode curr = head;
+        count--;
+
+        for (int i = 0; i < count; i++) {
+            curr.next = new ListNode((int) (Math.random() * maxInt));
+            curr = curr.next;
+        }
+
+        return head;
+	}
 }
