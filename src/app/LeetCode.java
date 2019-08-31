@@ -2,9 +2,37 @@ package app;
 
 import static java.lang.System.*;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 class LeetCode {
     public static void doProblems() {
-        runMergeTwoLists();
+        // runMergeTwoLists();
+        runSearchInsert();
+    }
+
+    private static void runSearchInsert() {
+        int maxInt = 40;
+        int[] array = Utility.generateRandomArray(6, maxInt);
+        Arrays.sort(array);
+
+        int x = (int) (Math.random() * maxInt);
+        out.println(String.format("%d would be inserted at index=%d in the array: %s", 
+            x, searchInsert(array, x), Arrays.toString(array)));
+    }
+
+    private static Object searchInsert(int[] nums, int target) {
+        if (nums.length == 0)
+            return 0;
+        
+        int i;
+        for(i = 0; i < nums.length; i++) {
+            if (nums[i] >= target)
+                break;
+        }
+        
+        return i;
     }
 
     private static void runMergeTwoLists() {
