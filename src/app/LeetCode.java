@@ -26,13 +26,24 @@ class LeetCode {
         if (nums.length == 0)
             return 0;
         
-        int i;
-        for(i = 0; i < nums.length; i++) {
-            if (nums[i] >= target)
-                break;
+        int left = 0;
+        int right = nums.length;
+        int mid;
+        while (right - left > 1) {
+            mid = left + (right - left)/2;
+
+            if (nums[mid] > target)
+                right = mid;
+            else if (nums[mid] < target)
+                left = mid;
+            else
+                return mid;
         }
         
-        return i;
+        if (target <= nums[left])
+            return left;
+        else
+            return right;
     }
 
     private static void runMergeTwoLists() {
