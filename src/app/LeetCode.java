@@ -9,7 +9,38 @@ import java.util.List;
 class LeetCode {
     public static void doProblems() {
         // runMergeTwoLists();
-        runSearchInsert();
+        // runSearchInsert();
+        runLongestCommonPrefix();
+    }
+
+    private static void runLongestCommonPrefix() {
+        String[] strings = new String[] {"c", "bcc", "abc"};
+
+        out.println(String.format("Longest common prefix is \"%s\"", longestCommonPrefix(strings)));
+    }
+
+    private static String longestCommonPrefix(String[] strs) {
+        if (strs.length == 0)
+            return "";
+        if (strs.length == 1)
+            return strs[0];
+        
+        int i = strs[0].length();
+        String prefix = strs[0].substring(0, i);
+
+        while (i > 0) {
+            for (int j = 1; j < strs.length; j++) {
+                if (strs[j].length() < i || !strs[j].substring(0, i).equals(prefix))
+                    break;
+
+                if (j == strs.length - 1)
+                    return prefix;
+            }
+            i--;
+            prefix = strs[0].substring(0, i);
+        }
+
+        return "";
     }
 
     private static void runSearchInsert() {
