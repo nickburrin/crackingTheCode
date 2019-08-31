@@ -44,33 +44,11 @@ public class App {
         
         ListNode head; 
         if (l1.value <= l2.value) {
-            head = l1;
-            l1 = l1.next;
+            return mergeTwoLists(l1.next, l2);
         }
         else {
-            head = l2;
-            l2 = l2.next;
+            return mergeTwoLists(l1, l2.next);
         }
-        ListNode curr = head;
-
-        while (l1 != null && l2 != null) {
-            if (l1.value <= l2.value) {
-                curr.next = l1;
-                l1 = l1.next;
-            } else {
-                curr.next = l2;
-                l2 = l2.next;
-            }
-
-            curr = curr.next;
-        }
-
-        if (l1 == null)
-            curr.next = l2;
-        else if (l2 == null)
-            curr.next = l1;
-
-        return head;
     }
 
     private static void moderate_16_11() {
