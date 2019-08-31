@@ -5,12 +5,58 @@ import static java.lang.System.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 class LeetCode {
     public static void doProblems() {
         // runMergeTwoLists();
         // runSearchInsert();
-        runLongestCommonPrefix();
+        // runLongestCommonPrefix();
+        runValidParentheses();
+    }
+
+    private static void runValidParentheses() {
+        String test1 = "()";
+        String test2 = "()[]{}";
+        String test3 = "(]";
+        String test4 = "([)]";
+        String test5 = "{[]}";
+
+        out.println(validParentheses(test1));
+        out.println(validParentheses(test2));
+        out.println(validParentheses(test3));
+        out.println(validParentheses(test4));
+        out.println(validParentheses(test5));
+    }
+
+    private static boolean validParentheses(String s) {
+        if (s.length() == 0) return true;
+        
+        final List<Character> openSet = Arrays.asList(new Character[]{'(', '[', '{'});
+        final List<Character> closeSet = Arrays.asList(new Character[]{')', ']', '}'});
+        Stack<Character> stack = new Stack<Character>();
+
+        for (Character c : s.toCharArray()) {
+            if (openSet.contains(c)) {
+                stack.push(c);
+            } else if(closeSet.contains(c)) {
+                if (stack.isEmpty() || !isSameType(stack.pop(), c))
+                    return false;
+            }
+        }
+
+        return stack.isEmpty() ? true : false;
+    }
+
+    private static boolean isSameType(Character open, Character close) {
+        if (open == '[' && close == ']')
+            return true;
+        if (open == '{' && close == '}')
+            return true;
+        if (open == '(' && close == ')')
+            return true;
+
+        return false;
     }
 
     private static void runLongestCommonPrefix() {
