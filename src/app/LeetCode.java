@@ -12,7 +12,22 @@ class LeetCode {
         // runMergeTwoLists();
         // runSearchInsert();
         // runLongestCommonPrefix();
-        runValidParentheses();
+        // runValidParentheses();
+        runStrStr();
+    }
+
+    private static void runStrStr() {
+        String search = "hello";
+        String find = "lo";
+        
+        out.println(String.format("\"%s\" found within \"%s\" at index=%d", find, search, strStr(search, find)));
+    }
+
+    private static Object strStr(String haystack, String needle) {
+        if (needle.isEmpty()) return 0;
+        if (haystack.isEmpty()) return -1;
+
+        return haystack.indexOf(needle);
     }
 
     private static void runValidParentheses() {
