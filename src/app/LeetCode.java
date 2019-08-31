@@ -14,7 +14,7 @@ class LeetCode {
     }
 
     private static void runLongestCommonPrefix() {
-        String[] strings = new String[] {"c", "bcc", "abc"};
+        String[] strings = new String[] {"flower","flow","flight"};
 
         out.println(String.format("Longest common prefix is \"%s\"", longestCommonPrefix(strings)));
     }
@@ -29,8 +29,10 @@ class LeetCode {
         String prefix = strs[0].substring(0, i);
 
         while (i > 0) {
+            int prefixHash = prefix.hashCode();
+
             for (int j = 1; j < strs.length; j++) {
-                if (strs[j].length() < i || !strs[j].substring(0, i).equals(prefix))
+                if (strs[j].length() < i || strs[j].substring(0, i).hashCode() != prefixHash)
                     break;
 
                 if (j == strs.length - 1)
