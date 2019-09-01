@@ -6,10 +6,18 @@ import java.util.Stack;
 
 public class LeetCode {
     public static int climbStairs(int steps) {
-        if (steps == 0) return 1;
+        if (steps == 0) return 0;
         if (steps == 1) return 1;
+        
+        int[] stepCount = new int[steps+1];
+        stepCount[0] = 1;
+        stepCount[1] = 1;
+        
+        for (int i = 2; i <= steps; i++) {
+            stepCount[i] = stepCount[i-1] + stepCount[i-2];
+        }
 
-        return climbStairs(steps-1) + climbStairs(steps-2);
+        return stepCount[steps];
     }
     
     public static String countAndSay(int n, String say) {
