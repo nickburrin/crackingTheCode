@@ -16,15 +16,25 @@ public class Utility {
     }
 
     public static int[] generateRandomArray(int count, int maxNum) {
-		int[] list = new int[count];
+		return generateRandomArray(count, maxNum, false);
+    }
+    
+    public static int[] generateRandomArray(int count, int maxIntAbs, boolean withNegatives) {
+        int[] list = new int[count];
 
-        for (int i = 0; i < count; i++)
-            list[i] = (int) (Math.random() * maxNum);
+        for (int i = 0; i < count; i++) {
+            list[i] = (int) (Math.random() * maxIntAbs);
+            list[i] *= withNegatives ? Utility.negativeCoinFlip() : 1;
+        }
 
         return list;
-	}
+    }
 
-	public static ListNode createList(int count, int maxInt) {
+	private static int negativeCoinFlip() {
+        return Math.random() > 0.5 ? 1 : -1;
+    }
+
+    public static ListNode createList(int count, int maxInt) {
         ListNode head = new ListNode((int) (Math.random() * maxInt));
         ListNode curr = head;
         count--;

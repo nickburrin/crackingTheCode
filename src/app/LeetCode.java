@@ -13,14 +13,39 @@ class LeetCode {
         // runSearchInsert();
         // runLongestCommonPrefix();
         // runValidParentheses();
-        runStrStr();
+        // runStrStr();
+        runMaxSubarray();
+    }
+
+    private static void runMaxSubarray() {
+        int[] array = new int[] {-1, -2};// Utility.generateRandomArray(5, 20, true);
+
+        out.println(String.format("The max sum of a subarray is %d in the array=%s", 
+            maxSubArray(array), Arrays.toString(array)));
+    }
+
+    private static int maxSubArray(int[] nums) {
+        if (nums.length == 0) return 0;
+        if (nums.length == 1) return nums[0];
+
+        int[] maxSumToEnd = new int[nums.length]; // memo(nums);
+        int max = nums[nums.length - 1];
+        maxSumToEnd[nums.length - 1] = max;
+        
+        for (int i = nums.length - 2; i >= 0; i--) {
+            maxSumToEnd[i] = Math.max(nums[i], nums[i] + maxSumToEnd[i+1]);
+            max = Math.max(max, maxSumToEnd[i]);
+        }
+
+        return max;
     }
 
     private static void runStrStr() {
         String search = "hello";
         String find = "lo";
         
-        out.println(String.format("\"%s\" found within \"%s\" at index=%d", find, search, strStr(search, find)));
+        out.println(String.format("\"%s\" found within \"%s\" at index=%d", 
+            find, search, strStr(search, find)));
     }
 
     private static Object strStr(String haystack, String needle) {
