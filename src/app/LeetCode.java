@@ -18,7 +18,7 @@ class LeetCode {
     }
 
     private static void runMaxSubarray() {
-        int[] array = new int[] {-1, -2};// Utility.generateRandomArray(5, 20, true);
+        int[] array = Utility.generateRandomArray(5, 20, true);
 
         out.println(String.format("The max sum of a subarray is %d in the array=%s", 
             maxSubArray(array), Arrays.toString(array)));
