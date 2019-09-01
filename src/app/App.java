@@ -13,7 +13,6 @@ import java.util.List;
 public class App {
     public static void main(String[] args) throws Exception {
         // doTextBookProblems();
-        LeetCode.doProblems();
     }
 
     private static void doTextBookProblems() {
@@ -316,7 +315,7 @@ public class App {
             Point.swap(end1, end2);
         }
 
-        Equation eq1 = new Equation(start1, end1);
+        Equation eq1 = newquation(start1, end1);
         Equation eq2 = new Equation(start2, end2);
         System.out.println("New equation: " + eq1.toString());
         System.out.println("New equation: " + eq2.toString());
