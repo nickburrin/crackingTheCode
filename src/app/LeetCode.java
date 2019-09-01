@@ -14,7 +14,37 @@ class LeetCode {
         // runLongestCommonPrefix();
         // runValidParentheses();
         // runStrStr();
-        runMaxSubarray();
+        // runMaxSubarray();
+        runCountAndSay();
+    }
+
+    private static void runCountAndSay() {
+        int n = 5;
+
+        out.println(String.format("The %dth iteration of the count-and-say sequence is %s", 
+            n, countAndSay(n, "1")));
+    }
+
+    private static String countAndSay(int n, String say) {
+        if (n == 0) return "";
+        if (n == 1) return say;
+
+        int count = 0;
+        char last = say.charAt(0);
+        StringBuilder builder = new StringBuilder();
+        
+        for(char c: say.toCharArray()) {
+            if (c == last) {
+                count++;
+            } else {
+                builder.append(count).append(last);
+                last = c;
+                count = 1;
+            }
+        }
+        builder.append(count).append(last);
+
+        return countAndSay(--n, builder.toString());
     }
 
     private static void runMaxSubarray() {
