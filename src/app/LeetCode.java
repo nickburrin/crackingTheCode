@@ -5,6 +5,13 @@ import java.util.List;
 import java.util.Stack;
 
 public class LeetCode {
+    public static int climbStairs(int steps) {
+        if (steps == 0) return 1;
+        if (steps == 1) return 1;
+
+        return climbStairs(steps-1) + climbStairs(steps-2);
+    }
+    
     public static String countAndSay(int n, String say) {
         if (n == 0) return "";
         if (n == 1) return say;

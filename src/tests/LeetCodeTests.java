@@ -19,6 +19,11 @@ public class LeetCodeTests {
     }
 
     @Test
+    public void testClimbStairs() {
+        assertEquals(2, LeetCode.climbStairs(2));
+    }
+
+    @Test
     public void testCountAndSay(){
         String initial = "1";
         assertEquals("1", LeetCode.countAndSay(1, initial));
