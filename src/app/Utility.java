@@ -6,6 +6,12 @@ import java.util.List;
 public class Utility {
     public Utility() {}
 
+    public static int[] arrayConcat(int[] sorted1, int[] sorted2) {
+        int[] both = Arrays.copyOf(sorted1, sorted1.length + sorted2.length);
+        System.arraycopy(sorted2, 0, both, sorted1.length, sorted2.length);
+        return both;
+    }
+    
     public static List<Integer> generateRandomList(int count, int maxNum) {
         List<Integer> list = Arrays.asList(new Integer[count]);
 
@@ -45,5 +51,13 @@ public class Utility {
         }
 
         return head;
+	}
+
+	public static int[] generateZeroArray(int n) {
+        int[] zeros = new int[n];
+        for(int i = 0; i < n; i++)
+            zeros[i] = 0;
+
+        return zeros;
 	}
 }

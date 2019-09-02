@@ -1,9 +1,12 @@
 package tests;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -19,8 +22,25 @@ public class LeetCodeTests {
     }
 
     @Test
+    public void testMergeSortedLists() {
+        int m = 4;
+        int n = 4;
+        
+        int[] sorted1 = Utility.generateRandomArray(m, 10, true);
+        int[] sorted2 = Utility.generateRandomArray(n, 15, true);
+        Arrays.sort(sorted1);
+        Arrays.sort(sorted2);
+        int[] expected = Utility.arrayConcat(sorted1, sorted2);
+        int[] arrayOfZeros = Utility.generateZeroArray(n);
+        int[] sorted1_withZeros = Utility.arrayConcat(sorted1, arrayOfZeros);
+        Arrays.sort(expected);
+
+        assertArrayEquals(expected, LeetCode.mergeSortedArrays(sorted1_withZeros, m, sorted2, n));
+    }
+
+    @Test
     public void testClimbStairs() {
-        assertEquals(2, LeetCode.climbStairs(2));
+        assertEquals(5, LeetCode.climbStairs(4));
     }
 
     @Test
