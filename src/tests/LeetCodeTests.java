@@ -22,6 +22,15 @@ public class LeetCodeTests {
     }
 
     @Test
+    public void testAddTwoNumbers() {
+        ListNode l1 = ListNode.createdLinkedListNum(2);
+        ListNode l2 = ListNode.createdLinkedListNum(0);
+
+        int addition = Integer.parseInt(l1.toStringReverse()) + Integer.parseInt(l2.toStringReverse());
+        assertEquals(addition, Integer.parseInt(LeetCode.addTwoNumbers(l1, l2).toStringReverse()));
+    }
+    
+    @Test
     public void testMergeSortedLists() {
         int m = 4;
         int n = 4;

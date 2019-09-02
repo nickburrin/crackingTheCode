@@ -5,6 +5,27 @@ import java.util.List;
 import java.util.Stack;
 
 public class LeetCode {
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        return addTwoNumbers(l1, l2, 0);
+    }
+    
+    private static ListNode addTwoNumbers(ListNode l1, ListNode l2, int carry) {
+        if (l1 == null && l2 == null && carry == 1) return new ListNode(1);
+
+        ListNode ret = null;
+        if (l1 != null || l2 != null) {
+            if (l1 == null) l1 = new ListNode(0);
+            if (l2 == null) l2 = new ListNode(0);
+            
+            int result = l1.value + l2.value + carry;
+            carry = result / 10;
+            ret = new ListNode(result % 10);
+            ret.next = addTwoNumbers(l1.next, l2.next, carry);
+        }
+
+        return ret;
+    }
+
     public static int[] mergeSortedArrays(int[] nums1, int m, int[] nums2, int n) {
         int idx = m+n-1;
         int i = m-1;

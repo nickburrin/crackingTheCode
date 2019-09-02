@@ -1,7 +1,5 @@
 package app;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class ListNode {
@@ -12,14 +10,16 @@ public class ListNode {
         this.value = value;
     }
 
-    public void createdLinkedListNum(int maxDigits) {
-        this.value = (int) (Math.random() * 10);
+    public static ListNode createdLinkedListNum(int maxDigits) {
+        ListNode head = new ListNode((int) (Math.random() * 10));
 
-        ListNode prev = this;
+        ListNode prev = head;
         for (int i = 1; i < maxDigits; i++) {
             prev.next = new ListNode((int) (Math.random() * 10));
             prev = prev.next;
         }
+
+        return head;
     }
 
     public static ListNode sort(ListNode head) {
@@ -63,5 +63,16 @@ public class ListNode {
         }
 
         return builder.toString();
+    }
+
+    public String toStringReverse() {
+        ListNode node = this;
+        StringBuilder builder = new StringBuilder();
+        while (node != null) {
+            builder.append(node.value);
+            node = node.next;
+        }
+
+        return builder.reverse().toString();
     }
 }
